@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# Chatbot Local con React.js
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este es un modelo rápido de chatbot construido con React.js que funciona completamente en el frontend, sin necesidad de conexión a APIs externas.
+
+## Características
+
+- Interfaz de chat simple y funcional
+- Autenticación simulada (sin backend)
+- Respuestas automáticas del bot
+- Diseño responsive y moderno
 
 ## Available Scripts
 
