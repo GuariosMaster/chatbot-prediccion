@@ -1,0 +1,461 @@
+.industrial-dashboard {
+  padding: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #f5f5f5;
+  box-sizing: border-box;
+}
+
+/* Contenedor interno para mejor control del scroll */
+.dashboard-content {
+  min-height: 100%;
+  padding-bottom: 20px;
+}
+
+/* Título responsivo */
+.industrial-dashboard h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  position: sticky;
+  top: 0;
+  background: #f5f5f5;
+  z-index: 100;
+  padding: 10px 0;
+}
+
+/* Navegación responsiva - también sticky */
+.dashboard-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  justify-content: center;
+  position: sticky;
+  top: 80px;
+  background: #f5f5f5;
+  z-index: 99;
+  padding: 10px 0;
+}
+
+.dashboard-nav button {
+  padding: 8px 16px;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  min-width: 120px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.dashboard-nav button.active,
+.dashboard-nav button:hover {
+  background: #007bff;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+}
+
+/* Filtros responsivos */
+.filters {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filters label {
+  font-weight: bold;
+  color: #333;
+}
+
+.filters select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Grid de estadísticas responsivo */
+.stats-section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+.stat-card h3 {
+  margin: 0 0 10px 0;
+  color: rgba(255,255,255,0.9);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Sección de datos responsiva */
+.data-section {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.data-section h2 {
+  padding: 20px;
+  margin: 0;
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.count {
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  color: #666;
+  font-weight: normal;
+}
+
+/* Contenedor de tabla con scroll */
+.data-table-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 50vh;
+  border: 1px solid #eee;
+  position: relative;
+}
+
+/* Tabla responsiva */
+.data-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  background: white;
+}
+
+.data-table th,
+.data-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  white-space: nowrap;
+}
+
+.data-table th {
+  background: #f8f9fa;
+  font-weight: bold;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1);
+}
+
+.data-table td {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Filas de fallo destacadas */
+.failure-row {
+  background-color: #fff5f5;
+  border-left: 4px solid #dc3545;
+}
+
+.failure-row:hover {
+  background-color: #ffe6e6;
+}
+
+.data-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Estados */
+.status {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.status.failure {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status.ok {
+  background: #d4edda;
+  color: #155724;
+}
+
+/* Nota informativa */
+.note {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  margin: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 50px;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  color: #666;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .industrial-dashboard {
+    padding: 5px;
+  }
+  
+  .industrial-dashboard h1 {
+    top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-nav {
+    top: 60px;
+    flex-direction: column;
+  }
+  
+  .dashboard-nav button {
+    max-width: none;
+    margin-bottom: 5px;
+  }
+  
+  .filters {
+    padding: 10px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  
+  .stat-card {
+    padding: 15px;
+  }
+  
+  .data-table-container {
+    max-height: 40vh;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .industrial-dashboard {
+    padding: 2px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .data-table {
+    min-width: 600px;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 4px 6px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Scrollbar personalizado para el contenedor principal */
+.industrial-dashboard::-webkit-scrollbar {
+  width: 12px;
+}
+
+.industrial-dashboard::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.industrial-dashboard::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  border-radius: 6px;
+  border: 2px solid #f1f1f1;
+}
+
+.industrial-dashboard::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+/* Scrollbar para tabla */
+.data-table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.data-table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.data-table-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.data-table-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.data-section,
+.stats-section {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Indicador de scroll */
+.scroll-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(102, 126, 234, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.scroll-indicator:hover {
+  background: rgba(102, 126, 234, 1);
+  transform: scale(1.1);
+}
+
+/* Estilos para la sección de gráficas */
+.charts-section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.charts-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.chart-container {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.chart-container h3 {
+  text-align: center;
+  color: #555;
+  margin-bottom: 20px;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  padding-bottom: 10px;
+  border-bottom: 2px solid #007bff;
+}
+
+/* Responsive para gráficas */
+@media (max-width: 768px) {
+  .chart-container {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .chart-container h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .charts-section {
+    padding: 10px;
+  }
+  
+  .chart-container {
+    padding: 10px;
+  }
+}
+
+/* Estilos para tooltips de gráficas */
+.recharts-tooltip-wrapper {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}

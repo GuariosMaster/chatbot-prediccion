@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-// Cambiar la URL base para que use el puerto correcto
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
-// Crear instancia de axios
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -11,7 +9,6 @@ const api = axios.create({
   },
 });
 
-// Interceptor para agregar token de autenticación
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -25,7 +22,6 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor para manejar errores de respuesta
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -38,7 +34,6 @@ api.interceptors.response.use(
   }
 );
 
-// Servicios de autenticación
 export const authService = {
   login: async (email, password) => {
     const response = await api.post('/auth/login', { email, password });
@@ -73,7 +68,6 @@ export const authService = {
   }
 };
 
-// Servicios de chat
 export const chatService = {
   sendMessage: async (message, conversationId = null) => {
     const response = await api.post('/chat/send', { message, conversationId });
@@ -87,7 +81,6 @@ export const chatService = {
   }
 };
 
-// Servicios de predicción
 export const predictionService = {
   predictFailure: async (sensorData) => {
     const response = await api.post('/predictions/failure', { sensorData });
@@ -100,73 +93,23 @@ export const predictionService = {
   }
 };
 
-export default api;
-
-
-## 🎉 **¡Excelente! Código subido exitosamente**
-
-Perfecto, ahora que tu proyecto está en GitHub, es momento de desplegarlo para que esté disponible en línea.
-
----
-
-## 🚀 **Próximos pasos: Despliegue**
-
-### **1. Frontend en Netlify**
-
-**Paso 1: Preparar el frontend**
-Primero, actualiza la configuración para producción:
-```javascript
-// Cambiar la URL base para que sea dinámica
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-```
-
-
-## 🌐 **Paso 2: Desplegar en Railway**
-
-### **1. Ir a Railway**
-- Ve a [railway.app](https://railway.app)
-- Haz clic en **"Start a New Project"**
-
-### **2. Conectar GitHub**
-- Selecciona **"Deploy from GitHub repo"**
-- Autoriza Railway para acceder a tu GitHub
-- Busca y selecciona tu repositorio `chatbot-prediccion`
-
-### **3. Configurar el proyecto**
-- **Root Directory:** `backend`
-- **Build Command:** `npm install` (se detecta automáticamente)
-- **Start Command:** `npm start` (se detecta automáticamente)
-
-### **4. Variables de entorno**
-En Railway, ve a **Variables** y agrega:
-- `NODE_ENV` = `production`
-- `JWT_SECRET` = `tu-clave-super-secreta-123`
-- `PORT` = `$PORT` (Railway lo maneja automáticamente)
-
-### **5. Deploy**
-- Haz clic en **"Deploy"**
-- Railway automáticamente:
-  - Clona tu repo
-  - Instala dependencias
-  - Ejecuta tu aplicación
-  - Te da una URL pública
-
----
-
-## 🎯 **Paso 3: Obtener la URL del backend**
-
-Después del deploy exitoso:
-1. Ve a tu proyecto en Railway
-2. Haz clic en **"Settings"** > **"Domains"**
-3. Copia la URL (algo como: `https://tu-proyecto.up.railway.app`)
-
----
-
-## 🌐 **Paso 4: Desplegar Frontend en Netlify**
-
-### **1. Actualizar API URL**
-Primero, actualiza el frontend para usar la URL de Railway:
-```javascript
-// Cambiar esta línea:
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-```
+// Agregar servicios para datos industriales
+export const industrialService = {
+  // Obtener todos los datos
+  getAllData: () => api.get('/predictions/historical-data'),
+  
+  // Obtener datos por máquina
+  getDataByMachine: (machineId) => api.get(`/predictions/machine/${machineId}`),
+  
+  // Obtener solo fallos
+  getFailures: () => api.get('/predictions/failures'),
+  
+  // Obtener estadísticas
+  getStats: () => api.get('/predictions/efficiency-stats'),
+  
+  // Obtener máquinas disponibles
+  getMachines: () => api.get('/predictions/machines'),
+  
+  // Obtener operadores
+  getOperators: () => api.get('/predictions/operators')
+};

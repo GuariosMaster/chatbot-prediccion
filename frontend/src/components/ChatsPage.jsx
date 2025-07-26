@@ -116,7 +116,13 @@ const ChatsPage = () => {
               onClick={() => window.location.href = '/predictions'}
               className="prediction-btn"
             >
-              Predicciones
+              📊 Predicciones
+            </button>
+            <button 
+              onClick={() => window.location.href = '/dashboard'}
+              className="dashboard-btn"
+            >
+              🏭 Dashboard Industrial
             </button>
           </div>
         </div>

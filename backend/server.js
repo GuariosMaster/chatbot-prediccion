@@ -10,6 +10,7 @@ const authRoutes = require('./routes/auth');
 const chatRoutes = require('./routes/chat');
 const predictionRoutes = require('./routes/predictions');
 const { initializeDatabase } = require('./config/database');
+const { initializeTalentoCSV } = require('./config/industrialCSV');
 
 const app = express();
 const server = createServer(app);
@@ -60,12 +61,18 @@ io.on('connection', (socket) => {
   });
 });
 
-// Inicializar base de datos
+// Inicializar base de datos SQLite y CSV
 initializeDatabase().then(() => {
-  const PORT = process.env.PORT || 5000; // Cambiar de 3001 a 5000
+  console.log('Base de datos SQLite inicializada');
+  
+  // Inicializar CSV para predicciones
+  initializeTalentoCSV();
+  console.log('Sistema CSV inicializado');
+  
+  const PORT = process.env.PORT || 5000;
   server.listen(PORT, () => {
     console.log(`Servidor ejecutándose en puerto ${PORT}`);
   });
 }).catch(err => {
-  console.error('Error al inicializar la base de datos:', err);
+  console.error('Error al inicializar:', err);
 });

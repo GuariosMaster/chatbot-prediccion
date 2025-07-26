@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AuthPage from './components/AuthPage';
 import ChatsPage from './components/ChatsPage';
 import PredictionPage from './components/PredictionPage';
+import IndustrialDashboard from './components/IndustrialDashboard';
 import './App.css';
 
 const ProtectedRoute = ({ children }) => {
@@ -42,6 +43,14 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <PredictionPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <IndustrialDashboard />
               </ProtectedRoute>
             } 
           />
